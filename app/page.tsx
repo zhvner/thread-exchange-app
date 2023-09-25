@@ -16,7 +16,7 @@ export default function Home() {
             xl:grid-cols-5
             2xl:grid-cols-6
             gap-8">
-              <div> My future photos</div>
+              <div> </div>
         </div>
       </Container>
     </ClientOnly>

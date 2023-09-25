@@ -1,65 +1,67 @@
 'use client';
-import { useCallback, useEffect, useState } from "react";
+import { useState } from "react";
 import useAboutModal from "@/app/hooks/useAboutModal";
 import Modal from "./Modal";
-import { 
-    FieldValues, 
-    SubmitHandler,
-    useForm
-  } from "react-hook-form";
-import { toast } from "react-hot-toast";
-import axios from "axios";
+import Heading from "../Heading"
 
-
-// interface AboutModalProps {
-//     isOpen?: boolean;
-//     onClose: () => void;
-//     title?: string;
-//     body?: React.ReactElement;
-//     footer?: React.ReactElement;
-//     //actionLabel: string;
-//     disabled?: boolean; //? mean options
-//     //secondaryAction?: () => void;
-//     //secondaryActionLabel?: string;
-//   }
 
 
 
 const AboutModal= () => {
     const [isLoading, setIsLoading] = useState(false);
     const aboutModal = useAboutModal();
-    const { 
-        register, 
-        handleSubmit,
-        formState: {
-          errors,
-        },
-      } = useForm<FieldValues>({
-        defaultValues: {
-          name: '',
-          email: '',
-          password: ''
-        },
-      });
+    
 
 
-  const onSubmit: SubmitHandler<FieldValues> = (data) => { //accept data
-    setIsLoading(true);
+  
+  const bodyContent = (
+    <div className="flex flex-col gap-4">
+      <Heading 
+      subtitle = "Welcome to Thread Exchange, your gateway to sustainable fashion awareness. We're not just an app we're a movement dedicated to making fashion a force for good. " 
+      />
 
-    axios.post('/api/register', data) //will pass the data to register file
-    .then(() => { //then function ?
-      //toast.success('Registered!');
-      aboutModal.onClose(); 
-    })
-    .catch((error) => {
-      toast.error("Something went wrong."); // to get the message on top about error
-    })
-    .finally(() => {
-      setIsLoading(false);
-    })
-  }
+      {/* Additional Content */}
+      <Heading 
+      midtitle="Our Mission"
+      //subtitle="At Thread Exchange, our passion is twofold:"
+      />
+
+      <p>At Thread Exchange, our passion is twofold:</p>
+      <p>
+        <b>Fast Fashion Awareness: </b>
+        
+        We're on a mission to shed light on the environmental and ethical consequences of fast fashion. Our digital platform is designed to educate and inspire change in fashion consumption habits. However, our commitment doesn't stop there.
+      </p>
 
 
+      <Heading 
+      midtitle="Transforming Schools and Communities"
+      content="Our Social Project"
+      />
+
+      <p>One of our proudest initiatives is our social project, where we collaborate with schools in different regions of British Columbia. We're passionate about instilling the values of sustainability and conscious consumption in the hearts and minds of Gen Z.</p>
+      
+      <Heading 
+      midtitle="A Digital Hub for Sustainable Fashion"
+      content="While our social projects create change on the ground, our digital platform is your go-to resource for all things sustainable fashion:"
+      /> 
+
+      <p>
+        <b>1. Survey Insights:  </b>
+        Take our survey to gain valuable insights into your fashion habits and discover opportunities for sustainable choices.
+      </p>
+
+      <p>
+        <b>2. Educational Content:  </b>
+        Explore our library of articles, guides, and resources, designed to empower you with knowledge about eco-friendly materials, ethical brands, and sustainable trends.
+      </p>
+
+      <p>
+        <b>3. Community Support:  </b>
+        Connect with like-minded individuals, share your journey, and find inspiration from others on their sustainable fashion path.
+      </p>
+    </div>
+  )
 
     
     return (
@@ -67,9 +69,10 @@ const AboutModal= () => {
         disabled={isLoading} // if submitting smth performs loading 
         isOpen={aboutModal.isOpen} //trigger registerModal
         title="About Us"
-        actionLabel={" "}
+        actionLabel={"Return"}
         onClose={aboutModal.onClose} // closes when we choose x
-        onSubmit={handleSubmit(onSubmit)}
+        onSubmit={aboutModal.onClose}
+        body = {bodyContent}
         />
     )
 }

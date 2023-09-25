@@ -5,9 +5,10 @@ import Navbar from './components/navbar/Navbar'
 import ClientOnly from './components/ClientOnly'
 import Modal from './components/modals/Modal'
 import RegisterModal from './components/modals/RegisterModal'
-import ToasterProvider from './providers/ToasterProvider'
+//import ToasterProvider from './providers/ToasterProvider'
 import AboutModal from './components/modals/AboutModal'
 //import { useHistory } from 'react-router-dom';
+import TeamModal from './components/modals/TeamModal'
 
 const font = Nunito({ subsets: ['latin'] })
 
@@ -30,6 +31,7 @@ export default function RootLayout({
         <ClientOnly>
           <RegisterModal />
           <AboutModal />
+          <TeamModal />
           <Navbar />
         </ClientOnly>
 

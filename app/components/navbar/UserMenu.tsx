@@ -6,19 +6,26 @@ import {useCallback, useState} from 'react';
 import MenuItem from './MenuItem';
 import useRegisterModal from '@/app/hooks/useRegisterModal';
 import useAboutModal from '@/app/hooks/useAboutModal';
+import TeamModal from '../modals/TeamModal';
+import useTeamModal from '@/app/hooks/useTeamModal';
 
 const UserMenu = () => {
     const [isOpen, setIsOpen] = useState(false);
     const toggleOpen = useCallback(() => {
         setIsOpen((value) => !value)
     }, [])
+
+
     const registerModal = useRegisterModal(); // opens register modal when clicjed in navbar
     const aboutModal = useAboutModal();
+    const teamModal = useTeamModal();
+
+
     return (
     <div className="relative">
         <div className="flex flex-row items-center gap-3">
           <div 
-            onClick={()=>{}}
+            onClick={aboutModal.onOpen}
             className="
               hidden
               md:block
@@ -32,7 +39,7 @@ const UserMenu = () => {
               cursor-pointer
             "
           >
-            Find yourself a seat!
+            Find About us
           </div>
           <div 
           onClick={toggleOpen}
@@ -79,19 +86,19 @@ const UserMenu = () => {
                     />
                     <MenuItem 
                         onClick={registerModal.onOpen}
-                        label='Sign Up'
+                        label='Register'
                     />
                     <MenuItem 
                         onClick={aboutModal.onOpen}
                         label='About'
                     />
                     <MenuItem 
-                        onClick={() => {}}
-                        label='Take A Survey'
+                        onClick={teamModal.onOpen}
+                        label='Team'
                     />
                     <MenuItem 
                         onClick={() => {}}
-                        label='Team'
+                        label='Survey'
                     />
                 </>
             </div>
