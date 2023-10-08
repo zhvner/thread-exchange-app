@@ -9,6 +9,7 @@ import RegisterModal from './components/modals/RegisterModal'
 import AboutModal from './components/modals/AboutModal'
 //import { useHistory } from 'react-router-dom';
 import TeamModal from './components/modals/TeamModal'
+import SurveyModal from './components/modals/SurveyModal'
 
 const font = Nunito({ subsets: ['latin'] })
 
@@ -32,6 +33,7 @@ export default function RootLayout({
           <RegisterModal />
           <AboutModal />
           <TeamModal />
+          <SurveyModal/>
           <Navbar />
         </ClientOnly>
 
@@ -39,3 +41,4 @@ export default function RootLayout({
     </html>
   )
 }
+//

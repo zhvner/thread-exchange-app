@@ -1,6 +1,10 @@
 'use client';
 
 import { IconType } from "react-icons"; //IconType is a type representing a React icon component.
+import { useSearchParams, useRouter } from "next/navigation";
+import { useCallback } from "react";
+import qs from "query-string";
+import { get } from "http";
 
 interface CategoryBoxProps {
     icon: IconType,
@@ -14,9 +18,45 @@ const CategoryBox: React.FC<CategoryBoxProps> = ({
     selected
 }) => {
 
+    const router = useRouter(); 
+    const params = useSearchParams();
+
+    const handleClick = useCallback(() => {
+        let currentQuery = {};
+
+        if(params) {
+            //define empty query
+            currentQuery = qs.parse(params.toString())
+        }
+
+        //look throuh empty params, so that they are object not a string
+        // bc by default parents to string is string
+        const updatedQuery: any = {
+            ...currentQuery,
+            category: label
+        } 
+
+
+        //spread the current query and add the new category in there
+        // check if the new category is already selected and we remove it from our updated query
+        // bc we want to deselect on and off    
+        if(params?.get('category') === label){
+            delete updatedQuery.category;
+        }
+
+        const url = qs.stringifyUrl({
+            url: '/',
+            query: updatedQuery
+          }, { skipNull: true });
+
+          router.push(url);
+
+    }, [label, router, params]);
+
+
     return (
         <div
-        //onClick={handleClick}
+        onClick={handleClick}
             className={`
                 flex 
                 flex-col 
@@ -32,7 +72,7 @@ const CategoryBox: React.FC<CategoryBoxProps> = ({
                 ${selected ? 'text-neutral-800' : 'text-neutral-500'}
         `}
         >  
-        <Icon size={26} />
+        <Icon size={30} />
         <div className="font-medium text-sm">
             {label}
         </div>

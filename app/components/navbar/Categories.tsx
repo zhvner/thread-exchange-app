@@ -1,3 +1,4 @@
+'use client';
 import Container from "../Container";
 import {TbBeach} from "react-icons/tb"
 import CategoryBox from "../CategoryBox"
@@ -9,22 +10,22 @@ import {SlBadge} from 'react-icons/sl'
  
 export const categories = [
     {
-        label: 'Fair Labor', 
+        label: 'Labor', 
         icon: GiSewingString,
         description: 'This property will inform you about beaches'
     },
     {
-        label: 'Sustainable Brands', 
+        label: 'Brands', 
         icon: SlBadge,
         description: 'This property will inform you about beaches'
     },
     {
-        label: 'Upcycle practices', 
+        label: 'Upcycling', 
         icon: GiRecycle,
         description: 'This property will inform you about beaches'
     },
     {
-        label: 'Your Footprint', 
+        label: 'Footprint', 
         icon: GiFootprint,
         description: 'This property will inform you about beaches'
     },
@@ -36,7 +37,7 @@ export const categories = [
 const Categories = () => {
     const params = useSearchParams();
     const category = params?.get('category');
-    const pathname = usePathname();
+    const pathname = usePathname(); // hide the 
     const isMainPage = pathname === '/';
 
     if (!isMainPage) {

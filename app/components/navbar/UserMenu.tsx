@@ -6,26 +6,33 @@ import {useCallback, useState} from 'react';
 import MenuItem from './MenuItem';
 import useRegisterModal from '@/app/hooks/useRegisterModal';
 import useAboutModal from '@/app/hooks/useAboutModal';
-import TeamModal from '../modals/TeamModal';
 import useTeamModal from '@/app/hooks/useTeamModal';
+import useSurveyModal from '@/app/hooks/useSurveyModal';
 
 const UserMenu = () => {
+
+    const registerModal = useRegisterModal(); // opens register modal when clicjed in navbar
+    const aboutModal = useAboutModal();
+    const teamModal = useTeamModal();
+    const surveyModal = useSurveyModal();
+
+
     const [isOpen, setIsOpen] = useState(false);
     const toggleOpen = useCallback(() => {
         setIsOpen((value) => !value)
     }, [])
 
-
-    const registerModal = useRegisterModal(); // opens register modal when clicjed in navbar
-    const aboutModal = useAboutModal();
-    const teamModal = useTeamModal();
+//     const onSurvey = useCallback(() => {
+//         surveyModal.onOpen();
+//     }, [surveyModal]
+// )
 
 
     return (
     <div className="relative">
         <div className="flex flex-row items-center gap-3">
           <div 
-            onClick={aboutModal.onOpen}
+            onClick={surveyModal.onOpen}
             className="
               hidden
               md:block
@@ -39,7 +46,7 @@ const UserMenu = () => {
               cursor-pointer
             "
           >
-            Find About us
+            Survey
           </div>
           <div 
           onClick={toggleOpen}
@@ -81,13 +88,14 @@ const UserMenu = () => {
             <div className='flex flex-col cursor-pointer'>
                 <>
                     <MenuItem 
-                        onClick={() => {}}
-                        label='Login'
-                    />
-                    <MenuItem 
                         onClick={registerModal.onOpen}
                         label='Register'
                     />
+                    {/* <MenuItem 
+                        onClick={() => {}}
+                        label='Login'
+                    /> */}
+                
                     <MenuItem 
                         onClick={aboutModal.onOpen}
                         label='About'
@@ -97,7 +105,7 @@ const UserMenu = () => {
                         label='Team'
                     />
                     <MenuItem 
-                        onClick={() => {}}
+                        onClick={surveyModal.onOpen}
                         label='Survey'
                     />
                 </>

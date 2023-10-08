@@ -15,9 +15,9 @@ const AboutModal= () => {
 
   
   const bodyContent = (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-4 ">
       <Heading 
-      subtitle = "Welcome to Thread Exchange, your gateway to sustainable fashion awareness. We're not just an app we're a movement dedicated to making fashion a force for good. " 
+      subtitle = "Welcome!  We're not just an app we're a movement dedicated to making fashion a force for good. " 
       />
 
       {/* Additional Content */}
@@ -26,11 +26,11 @@ const AboutModal= () => {
       //subtitle="At Thread Exchange, our passion is twofold:"
       />
 
-      <p>At Thread Exchange, our passion is twofold:</p>
+      <p>At Thread Exchange, our passion is :</p>
       <p>
         <b>Fast Fashion Awareness: </b>
         
-        We're on a mission to shed light on the environmental and ethical consequences of fast fashion. Our digital platform is designed to educate and inspire change in fashion consumption habits. However, our commitment doesn't stop there.
+        To shed light on the environmental and ethical consequences of fast fashion. Our digital platform is designed to educate and inspire change in fashion consumption habits. However, our commitment doesn't stop there.
       </p>
 
 
@@ -68,10 +68,11 @@ const AboutModal= () => {
         <Modal
         disabled={isLoading} // if submitting smth performs loading 
         isOpen={aboutModal.isOpen} //trigger registerModal
-        title="About Us"
-        actionLabel={"Return"}
         onClose={aboutModal.onClose} // closes when we choose x
         onSubmit={aboutModal.onClose}
+        
+        title="About Us"
+        actionLabel={"Return"}
         body = {bodyContent}
         />
     )
