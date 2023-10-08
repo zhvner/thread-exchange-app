@@ -9,9 +9,10 @@ import { useState } from "react";
 import { useMemo } from "react";
 import {FieldValues,SubmitHandler,  useForm} from "react-hook-form"
 import Heading from "../Heading";
-import { categories } from "../navbar/Categories";
+import { categories, options } from "../navbar/Categories";
 import CategoryInput from '../inputs/CategoryInput';
 import CountrySelect from "../inputs/CountrySelect";
+import dynamic from 'next/dynamic'
 
 enum STEPS {
   CATEGORY = 0,
@@ -27,6 +28,8 @@ const SurveyModal = () => {
     const surveyModal = useSurveyModal();
 
     const [step, setStep] = useState(STEPS.CATEGORY);
+
+    
 
     const { 
       register, 
@@ -93,6 +96,10 @@ const SurveyModal = () => {
   
       return 'Back'
     }, [step]);
+
+    const Map = useMemo(() => dynamic(() => import('../Map'), { 
+      ssr: false 
+    }), [location]);
   
 
    
@@ -100,10 +107,10 @@ const SurveyModal = () => {
      let bodyContent = (
       <div className="flex flex-col gap-8">
         <Heading
-        title="Which of these best describes your opinion on fast fashion's environmental impact?"
+        title="Which of these best describes your opinion on fast fashion?"
         subtitle="Pick a category"/>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3 max-h-[50vh] overflow-y-auto">
-          {categories.map((item) => (
+          {options.map((item) => (
             <div key={item.label} className="col-span-1">
               <CategoryInput
               onClick={(category) => 
@@ -116,6 +123,8 @@ const SurveyModal = () => {
           ))}
         </div>
       </div>
+
+
       
      )
 

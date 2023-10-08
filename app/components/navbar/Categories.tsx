@@ -3,10 +3,12 @@ import Container from "../Container";
 import {TbBeach} from "react-icons/tb"
 import CategoryBox from "../CategoryBox"
 import { usePathname, useSearchParams } from 'next/navigation';
-import { MdOutlineVilla } from 'react-icons/md';
-import {BiLeaf} from 'react-icons/bi';
 import {GiSewingString, GiFootprint, GiRecycle} from 'react-icons/gi'
 import {SlBadge} from 'react-icons/sl'
+import {IoEarthSharp} from 'react-icons/io5'
+import {BiMoneyWithdraw} from 'react-icons/bi'
+import {BiSolidShoppingBags} from 'react-icons/bi'
+import {LuHeartHandshake} from 'react-icons/lu'
  
 export const categories = [
     {
@@ -29,6 +31,33 @@ export const categories = [
         icon: GiFootprint,
         description: 'This property will inform you about beaches'
     },
+   
+
+
+]
+
+export const options = [
+    {
+        label: 'Affordability', 
+        icon: BiMoneyWithdraw,
+        description: ''
+    },
+    {
+        label: 'Enjoy Trends', 
+        icon: BiSolidShoppingBags,
+        description: ''
+    },
+    {
+        label: 'Personal Footprint', 
+        icon: GiFootprint,
+        description: 'This property will inform you about beaches'
+    },
+    {
+        label: 'Ethics', 
+        icon: LuHeartHandshake,
+        description: 'This property will inform you about beaches'
+    },
+
    
 
 
