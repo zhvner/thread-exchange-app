@@ -7,10 +7,12 @@ import Modal from "./Modal";
 import { useState } from "react";
 
 import { useMemo } from "react";
-import {FieldValues, useForm} from "react-hook-form"
+import {FieldValues,SubmitHandler,  useForm} from "react-hook-form"
 import Heading from "../Heading";
 import { categories } from "../navbar/Categories";
 import CategoryInput from '../inputs/CategoryInput';
+import CountrySelect from "../inputs/CountrySelect";
+
 enum STEPS {
   CATEGORY = 0,
   LOCATION = 1,
@@ -50,6 +52,7 @@ const SurveyModal = () => {
     });
 
     const category = watch('category');
+    const location = watch('location');
 
     const setCustomValue = (id: string, value: any) => {
       setValue(id, value, {
@@ -68,6 +71,12 @@ const SurveyModal = () => {
 
     }
 
+    const onSubmit: SubmitHandler<FieldValues> = (data) => {
+      if (step !== STEPS.DESCRIPTION) {
+        return onNext();
+      }
+    }
+
     const actionLabel = useMemo(() => {
      if(step === STEPS.DESCRIPTION) {
       return 'Create';
@@ -75,24 +84,18 @@ const SurveyModal = () => {
 
      return 'Next';
 
-    },[step] )
+    },[step] );
 
     const secondaryActionLabel = useMemo(() => {
-      if(step === STEPS.CATEGORY) {
-       return undefined;
+      if (step === STEPS.DESCRIPTION) {
+        return undefined
       }
- 
-      return 'Back';
- 
-     },[step] )
+  
+      return 'Back'
+    }, [step]);
+  
 
-    //  const setCustomValue = (id: string, value: any) => {
-    //   setValue(id, value, {
-    //     shouldDirty: true,
-    //     shouldTouch: true,
-    //     shouldValidate: true
-    //   })
-    // }
+   
 
      let bodyContent = (
       <div className="flex flex-col gap-8">
@@ -116,15 +119,32 @@ const SurveyModal = () => {
       
      )
 
+     if (step === STEPS.LOCATION) {
+      bodyContent = (
+        <div className="flex flex-col gap-8">
+          <Heading
+            title="Where is your place located?"
+            subtitle="Help us find your primary shopping places"
+          />
+          <CountrySelect 
+          value={location}
+          onChange={(value) => setCustomValue('location', value)}
+
+          />
+          {/* <Map center={location?.latlng} /> */}
+        </div>
+      );
+    }
+
     return (
         <Modal
         disabled={isLoading} // if submitting smth performs loading 
         isOpen={surveyModal.isOpen} //trigger registerModal
         onClose={surveyModal.onClose} // closes when we choose x
-        onSubmit={surveyModal.onClose}
-        actionLabel = "Next"
+        onSubmit={handleSubmit(onSubmit)}
+        actionLabel = {actionLabel}
         secondaryActionLabel={secondaryActionLabel}
-        secondaryAction={step == STEPS.CATEGORY? undefined:onBack}
+        secondaryAction={step == STEPS.DESCRIPTION? undefined:onBack}
         title="Survey"
         body={bodyContent}
         />
